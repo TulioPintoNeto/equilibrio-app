@@ -46,11 +46,11 @@ export class Session {
         return this.#sessionRetrier();
       }
 
-      return null;
+      return {};
     }
   }
 
-  get(): Promise<any> {
+  get(): Promise<{ user: string }> {
     this.#retryCount = 5;
 
     return this.#sessionRetrier();
