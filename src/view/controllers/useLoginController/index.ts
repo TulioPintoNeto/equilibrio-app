@@ -1,6 +1,6 @@
 import { FormEvent } from 'react';
 import { Credentials } from '@/domain/entities/Credentials';
-import { login } from '@/domain/usecases/Login';
+import { login } from '@/domain/usecases/login';
 import { useFormController } from '@/core/useFormController';
 
 interface Target extends EventTarget {
