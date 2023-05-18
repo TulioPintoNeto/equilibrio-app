@@ -1,27 +1,23 @@
 import { FormEvent, useState } from 'react';
 import {
   EmptyState,
-  ErrorState, LoadingState, State, SuccessState,
+  ErrorState,
+  LoadingState,
+  State,
+  SuccessState,
 } from '../State';
 
-interface Params<
-  EventType extends FormEvent,
-  Entity,
-> {
+interface Params<EventType extends FormEvent, Entity> {
   // eslint-disable-next-line no-unused-vars
   entityBuilder: (eventType: EventType) => Entity;
   // eslint-disable-next-line no-unused-vars
   functionUseCase: (entity: Entity) => Promise<void>;
 }
 
-export const useFormController = <
-  Data,
-  EventType extends FormEvent,
-  Entity,
->({
-    entityBuilder,
-    functionUseCase,
-  }: Params<EventType, Entity>) => {
+export const useFormController = <EventType extends FormEvent, Entity, Data>({
+  entityBuilder,
+  functionUseCase,
+}: Params<EventType, Entity>) => {
   const [state, setState] = useState<State<Data>>(new EmptyState());
 
   const execute = async (entity: Entity) => {

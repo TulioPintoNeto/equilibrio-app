@@ -13,14 +13,11 @@ interface Target extends EventTarget {
 }
 
 export interface LoginEvent extends FormEvent {
-  target: Target
+  target: Target;
 }
 
 const useLoginController = () => {
-  const {
-    state,
-    onSubmit,
-  } = useFormController<void, LoginEvent, Credentials>({
+  const { state, onSubmit } = useFormController<LoginEvent, Credentials, void>({
     entityBuilder: (event: LoginEvent) => new Credentials({
       email: event.target.email.value,
       password: event.target.password.value,
