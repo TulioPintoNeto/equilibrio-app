@@ -14,11 +14,11 @@ interface Params<EventType extends FormEvent, Entity> {
   functionUseCase: (entity: Entity) => Promise<void>;
 }
 
-export const useFormController = <EventType extends FormEvent, Entity, Data>({
+export const useFormController = <EventType extends FormEvent, Entity>({
   entityBuilder,
   functionUseCase,
 }: Params<EventType, Entity>) => {
-  const [state, setState] = useState<State<Data>>(new EmptyState());
+  const [state, setState] = useState<State<void>>(new EmptyState());
 
   const execute = async (entity: Entity) => {
     setState(new LoadingState());
