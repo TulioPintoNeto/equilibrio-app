@@ -3,7 +3,7 @@ interface Params {
   password: string;
 }
 
-export class Login {
+export class Credentials {
   email: string;
   password: string;
 

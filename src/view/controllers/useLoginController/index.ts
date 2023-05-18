@@ -1,5 +1,5 @@
 import { FormEvent } from 'react';
-import { Login } from '@/domain/entities/Login';
+import { Credentials } from '@/domain/entities/Credentials';
 import { login } from '@/domain/usecases/Login';
 import { useFormController } from '@/core/useFormController';
 
@@ -20,8 +20,8 @@ const useLoginController = () => {
   const {
     state,
     onSubmit,
-  } = useFormController<void, LoginEvent, Login>({
-    entityBuilder: (event: LoginEvent) => new Login({
+  } = useFormController<void, LoginEvent, Credentials>({
+    entityBuilder: (event: LoginEvent) => new Credentials({
       email: event.target.email.value,
       password: event.target.password.value,
     }),

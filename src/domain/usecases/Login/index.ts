@@ -1,5 +1,5 @@
-import { Login } from '@/domain/entities/Login';
+import { Credentials } from '@/domain/entities/Credentials';
 
-export const login = async (entity: Login): Promise<any> => {
+export const login = async (entity: Credentials): Promise<any> => {
   console.warn('Unimplemented method', entity);
 };
