@@ -10,13 +10,26 @@
   ],
   "rules": {
     "import/extensions": "off",
+    "import/no-extraneous-dependencies": [
+      "error",
+      {
+        "devDependencies": [
+          "**/*.test.js",
+          "tailwind.config.js"
+        ]
+      }
+    ],
     "import/prefer-default-export": "off",
+    "jsx-a11y/label-has-associated-control": "off",
     "lines-between-class-members": [
       "error",
       "always",
       { "exceptAfterSingleLine": true }
     ],
-    "react/jsx-filename-extension": [1, { "extensions": [".jsx", ".tsx"] }],
+    "no-underscore-dangle": "off",
+    "react/button-has-type": "off",
+    "react/jsx-filename-extension": ["warn", { "extensions": [".jsx", ".tsx"] }],
+    "react/jsx-pascal-case": ["error", { "allowLeadingUnderscore": true }],
     "no-plusplus": "off"
   }
 }
