@@ -19,7 +19,7 @@ const useForgotPasswordController = () => {
   });
 
   return {
-    forgotPasswordState: state,
+    state,
     onSubmit,
   };
 };

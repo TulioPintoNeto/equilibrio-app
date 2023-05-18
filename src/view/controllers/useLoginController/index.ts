@@ -26,7 +26,7 @@ const useLoginController = () => {
   });
 
   return {
-    loginState: state,
+    state,
     onSubmit,
   };
 };
