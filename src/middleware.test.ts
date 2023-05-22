@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { Session } from './data/Session';
+import { SessionManager } from './data/SessionManager';
 import { middleware, unauthorizedUrl } from './middleware';
 
 const requestUrl = 'https://localhost:3000/';
@@ -10,7 +10,7 @@ jest.mock('next/server', () => ({
 jest.mock('./data/Session', () => ({
   Session: jest.fn(),
 }));
-const MockSession = Session as jest.Mock;
+const MockSession = SessionManager as jest.Mock;
 const MockNextRequest = NextRequest as jest.Mock;
 const mockNext = NextResponse.next as jest.Mock;
 const mockRedirect = NextResponse.redirect as jest.Mock;

@@ -8,16 +8,19 @@ import {
 } from '../State';
 
 interface Params<EventType extends FormEvent, Entity> {
-  // eslint-disable-next-line no-unused-vars
   entityBuilder: (eventType: EventType) => Entity;
-  // eslint-disable-next-line no-unused-vars
   functionUseCase: (entity: Entity) => Promise<void>;
+}
+
+export interface FormControllerOutput {
+  onSubmit: (event: unknown) => void;
+  state: State<void>;
 }
 
 export const useFormController = <EventType extends FormEvent, Entity>({
   entityBuilder,
   functionUseCase,
-}: Params<EventType, Entity>) => {
+}: Params<EventType, Entity>): FormControllerOutput => {
   const [state, setState] = useState<State<void>>(new EmptyState());
 
   const execute = async (entity: Entity) => {

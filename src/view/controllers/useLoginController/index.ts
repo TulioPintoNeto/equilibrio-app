@@ -16,19 +16,12 @@ export interface LoginEvent extends FormEvent {
   target: Target;
 }
 
-const useLoginController = () => {
-  const { state, onSubmit } = useFormController({
-    entityBuilder: (event: LoginEvent) => new Credentials({
-      email: event.target.email.value,
-      password: event.target.password.value,
-    }),
-    functionUseCase: login,
-  });
-
-  return {
-    state,
-    onSubmit,
-  };
-};
+const useLoginController = () => useFormController({
+  entityBuilder: (event: LoginEvent) => new Credentials({
+    email: event.target.email.value,
+    password: event.target.password.value,
+  }),
+  functionUseCase: login,
+});
 
 export default useLoginController;
