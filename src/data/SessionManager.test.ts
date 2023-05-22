@@ -1,12 +1,12 @@
 import { getIronSession } from 'iron-session/edge';
-import { Session } from './Session';
+import { SessionManager } from './SessionManager';
 
 jest.mock('iron-session/edge', () => ({
   getIronSession: jest.fn(),
 }));
 const mockGetIronSession = getIronSession as jest.Mock;
 
-describe('Session', () => {
+describe('SessionManager', () => {
   const OLD_ENV = process.env;
 
   beforeEach(() => {
@@ -18,7 +18,7 @@ describe('Session', () => {
     process.env = OLD_ENV;
   });
 
-  const getSession = () => new Session({} as Request, {} as Response).get();
+  const getSession = () => new SessionManager({} as Request, {} as Response).get();
 
   describe('success', () => {
     const testSession = {
