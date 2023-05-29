@@ -8,12 +8,12 @@ export function PasswordFormGroup() {
       <div className="flex items-center justify-between">
         <Label htmlFor="password">Senha</Label>
         <div className="text-sm">
-          {/* <a
-        href="#"
-        className="font-semibold text-indigo-600 hover:text-indigo-500"
-      >
-        Forgot password?
-      </a> */}
+          <a
+            href="forgot-password"
+            className="font-semibold text-indigo-600 hover:text-indigo-500"
+          >
+            Esqueceu a senha?
+          </a>
         </div>
       </div>
       <div className="mt-2">

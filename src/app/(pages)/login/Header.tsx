@@ -1,6 +1,7 @@
 import Image from 'next/image';
 import React from 'react';
 import EquilibrioLogo from '@/assets/equilibrio-academia-logo.png';
+import { Title } from '@/view/components/Title';
 
 export function Header() {
   return (
@@ -11,9 +12,7 @@ export function Header() {
         alt="Your Company"
         width={140}
       />
-      <h2 className="mt-10 text-center text-2xl font-bold leading-9 tracking-tight">
-        Entre em sua conta
-      </h2>
+      <Title text="Entre em sua conta" />
     </div>
   );
 }

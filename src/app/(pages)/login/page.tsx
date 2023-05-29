@@ -2,20 +2,21 @@
 
 import React from 'react';
 import { Header } from '@/app/(pages)/login/Header';
-import { EmailFormGroup } from './EmailFormGroup';
 import { PasswordFormGroup } from './PasswordFormGroup';
 import useLoginController from '@/view/controllers/useLoginController';
 import { FormPage } from '@/core/FormPage';
+import { EmailFormGroup } from '@/view/components/EmailFormGroup';
 
 export default function Login() {
   return (
     <FormPage
-      Header={Header}
+      buttonText="Entrar"
+      controller={useLoginController}
       FormGroups={[
         EmailFormGroup,
         PasswordFormGroup,
       ]}
-      controller={useLoginController}
+      Header={Header}
     />
   );
 }

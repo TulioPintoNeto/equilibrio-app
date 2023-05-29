@@ -5,12 +5,15 @@ import { FormControllerOutput } from '../useFormController';
 type Component = () => JSX.Element;
 
 interface Props {
-  Header: Component;
-  FormGroups: Component[];
+  buttonText: string;
   controller: () => FormControllerOutput;
+  FormGroups: Component[];
+  Header: Component;
 }
 
-export function FormPage({ Header, FormGroups, controller }: Props) {
+export function FormPage({
+  buttonText, controller, FormGroups, Header,
+}: Props) {
   const c = controller();
 
   return (
@@ -24,7 +27,7 @@ export function FormPage({ Header, FormGroups, controller }: Props) {
             </div>
           ))}
           <div>
-            <FormButton type="submit" text="Entrar" />
+            <FormButton type="submit" text={buttonText} />
           </div>
         </form>
       </div>
