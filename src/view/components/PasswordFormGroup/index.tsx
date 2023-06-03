@@ -2,11 +2,17 @@ import React from 'react';
 import { Input } from '@/view/components/Input';
 import { Label } from '@/view/components/Label';
 
-export function PasswordFormGroup() {
+interface Props {
+  autoComplete?: boolean;
+  forgotPasswordButton?: boolean;
+}
+
+function _PasswordFormGroup({ autoComplete, forgotPasswordButton }: Props) {
   return (
     <div>
       <div className="flex items-center justify-between">
         <Label htmlFor="password">Senha</Label>
+        {forgotPasswordButton && (
         <div className="text-sm">
           <a
             href="forgot-password"
@@ -15,14 +21,28 @@ export function PasswordFormGroup() {
             Esqueceu a senha?
           </a>
         </div>
+        )}
       </div>
       <div className="mt-2">
         <Input
-          autoComplete="current-password"
+          autoComplete={autoComplete ? 'current-password' : ''}
           name="password"
           type="password"
         />
       </div>
     </div>
   );
+}
+
+_PasswordFormGroup.defaultProps = {
+  autoComplete: false,
+  forgotPasswordButton: false,
+};
+
+export function LoginPasswordFormGroup() {
+  return <_PasswordFormGroup autoComplete forgotPasswordButton />;
+}
+
+export function RecoverPasswordFormGroup() {
+  return <_PasswordFormGroup />;
 }

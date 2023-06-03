@@ -7,7 +7,7 @@ export async function middleware(req: NextRequest) {
   const res = NextResponse.next();
   const session = await new SessionManager(req, res).get();
 
-  if (!session.user) {
+  if (!session?.user) {
     return NextResponse.redirect(unauthorizedUrl(req.url));
   }
 
@@ -15,5 +15,5 @@ export async function middleware(req: NextRequest) {
 }
 
 export const config = {
-  matcher: ['/((?!login|forgot-password|_next/static|_next/image|favicon.ico).*)'],
+  matcher: ['/((?!login|forgot-password|recover-password|_next/static|_next/image|favicon.ico).*)'],
 };
