@@ -7,6 +7,10 @@ interface SessionParams {
   user: any;
 }
 
+declare module 'iron-session' {
+  interface IronSessionData extends SessionParams {}
+}
+
 export class Session {
   user: any;
 

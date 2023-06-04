@@ -24,7 +24,7 @@ export class SessionManager {
       return null;
     }
 
-    const sessionParams = getIronSession(this.#req, this.#res, {
+    const sessionParams = await getIronSession(this.#req, this.#res, {
       password,
       cookieName,
       cookieOptions: {
@@ -49,7 +49,7 @@ export class SessionManager {
         return this.#sessionRetrier();
       }
 
-      return {};
+      return null;
     }
   }
 
