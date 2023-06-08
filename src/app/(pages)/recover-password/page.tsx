@@ -6,7 +6,7 @@ import useRecoverPasswordController from '@/view/controllers/useRecoverPasswordC
 import { Header } from './Header';
 import { RecoverPasswordFormGroup } from '@/view/components/PasswordFormGroup';
 
-export function RecoverPassword() {
+export default function RecoverPassword() {
   return (
     <FormPage
       buttonText="Redefinir"
