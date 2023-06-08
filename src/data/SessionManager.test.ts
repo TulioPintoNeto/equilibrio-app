@@ -1,5 +1,6 @@
 import { getIronSession } from 'iron-session/edge';
 import { SessionManager } from './SessionManager';
+import { Session } from './Session';
 
 jest.mock('iron-session/edge', () => ({
   getIronSession: jest.fn(),
@@ -21,9 +22,9 @@ describe('SessionManager', () => {
   const getSession = () => new SessionManager({} as Request, {} as Response).get();
 
   describe('success', () => {
-    const testSession = {
+    const testSession = new Session({
       user: 'abc',
-    };
+    });
 
     it('should return session object', async () => {
       process.env.IRON_PASSWORD = 'password';
@@ -32,7 +33,7 @@ describe('SessionManager', () => {
 
       const result = await getSession();
 
-      expect(result).toBe(testSession);
+      expect(result).toStrictEqual(testSession);
     });
   });
 
