@@ -7,20 +7,20 @@ interface Props {
   forgotPasswordButton?: boolean;
 }
 
-function _PasswordFormGroup({ autoComplete, forgotPasswordButton }: Props) {
+function _PasswordFormGroup({ autoComplete = false, forgotPasswordButton = false }: Props) {
   return (
     <div>
       <div className="flex items-center justify-between">
         <Label htmlFor="password">Senha</Label>
         {forgotPasswordButton && (
-        <div className="text-sm">
-          <a
-            href="forgot-password"
-            className="font-semibold text-indigo-600 hover:text-indigo-500"
-          >
-            Esqueceu a senha?
-          </a>
-        </div>
+          <div className="text-sm">
+            <a
+              href="forgot-password"
+              className="font-semibold text-indigo-600 hover:text-indigo-500"
+            >
+              Esqueceu a senha?
+            </a>
+          </div>
         )}
       </div>
       <div className="mt-2">
@@ -33,11 +33,6 @@ function _PasswordFormGroup({ autoComplete, forgotPasswordButton }: Props) {
     </div>
   );
 }
-
-_PasswordFormGroup.defaultProps = {
-  autoComplete: false,
-  forgotPasswordButton: false,
-};
 
 export function LoginPasswordFormGroup() {
   return <_PasswordFormGroup autoComplete forgotPasswordButton />;

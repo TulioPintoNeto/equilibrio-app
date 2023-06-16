@@ -8,13 +8,19 @@ interface Target extends EventTarget {
   };
 }
 
-export interface ForgotPasswordEvent extends FormEvent {
+export interface LoginEvent extends FormEvent {
   target: Target;
 }
 
-const useForgotPasswordController = () => useFormController({
-  entityBuilder: (event: ForgotPasswordEvent) => event.target.email.value,
-  functionUseCase: forgotPassword,
-});
+const useForgotPasswordController = () => {
+  const formController = useFormController({
+    entityBuilder: (event: LoginEvent) => event.target.email.value,
+    functionUseCase: forgotPassword,
+  });
+
+  return {
+    formController,
+  };
+};
 
 export default useForgotPasswordController;

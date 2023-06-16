@@ -1,6 +1,6 @@
 import { ServerResponse, IncomingMessage } from 'http';
 import { getIronSession } from 'iron-session/edge';
-import { Environment } from './Environment';
+import { Environment } from '../Environment';
 import { Session } from './Session';
 
 export class SessionManager {

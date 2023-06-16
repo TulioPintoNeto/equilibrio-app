@@ -7,13 +7,13 @@ import { EmailFormGroup } from '@/view/components/EmailFormGroup';
 import useForgotPasswordController from '@/view/controllers/useForgotPasswordController';
 
 export default function ForgotPassword() {
+  const { formController } = useForgotPasswordController();
+
   return (
     <FormPage
       buttonText="Enviar"
-      controller={useForgotPasswordController}
-      FormGroups={[
-        EmailFormGroup,
-      ]}
+      controller={formController}
+      FormGroups={[EmailFormGroup]}
       Header={Header}
     />
   );

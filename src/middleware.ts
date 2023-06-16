@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { SessionManager } from './data/SessionManager';
+import { SessionManager } from './data/auth/SessionManager';
 
 export const unauthorizedUrl = (reqUrl: string) => new URL('/login', reqUrl);
 
@@ -15,5 +15,7 @@ export async function middleware(req: NextRequest) {
 }
 
 export const config = {
-  matcher: ['/((?!login|forgot-password|recover-password|_next/static|_next/image|favicon.ico).*)'],
+  matcher: [
+    '/((?!api/login|login|forgot-password|recover-password|_next/static|_next/image|favicon.ico).*)',
+  ],
 };

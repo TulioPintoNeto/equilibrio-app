@@ -1,7 +1,7 @@
 import React from 'react';
 
 interface Props {
-   onClick?: () => void;
+   onClick?: (() => void);
    text: string;
    type: 'button' | 'submit' | 'reset';
 }
@@ -39,10 +39,6 @@ function _Button({
     </button>
   );
 }
-
-_Button.defaultProps = {
-  onClick: null,
-};
 
 interface FormButtonProps extends Omit<Props, 'onClick'> {
   type: 'submit' | 'reset';

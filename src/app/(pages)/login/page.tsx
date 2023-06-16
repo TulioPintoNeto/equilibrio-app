@@ -8,10 +8,12 @@ import { EmailFormGroup } from '@/view/components/EmailFormGroup';
 import { LoginPasswordFormGroup } from '@/view/components/PasswordFormGroup';
 
 export default function Login() {
+  const { formController } = useLoginController();
+
   return (
     <FormPage
       buttonText="Entrar"
-      controller={useLoginController}
+      controller={formController}
       FormGroups={[
         EmailFormGroup,
         LoginPasswordFormGroup,

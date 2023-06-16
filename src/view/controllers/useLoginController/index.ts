@@ -1,7 +1,9 @@
-import { FormEvent } from 'react';
+import { FormEvent, useEffect } from 'react';
+import { useRouter } from 'next/navigation';
 import { Credentials } from '@/domain/entities/Credentials';
 import { login } from '@/domain/usecases/login';
 import { useFormController } from '@/core/useFormController';
+import { SuccessState } from '@/core/State';
 
 interface Target extends EventTarget {
   email: {
@@ -16,12 +18,27 @@ export interface LoginEvent extends FormEvent {
   target: Target;
 }
 
-const useLoginController = () => useFormController({
-  entityBuilder: (event: LoginEvent) => new Credentials({
-    email: event.target.email.value,
-    password: event.target.password.value,
-  }),
-  functionUseCase: login,
-});
+const useLoginController = () => {
+  const formController = useFormController({
+    entityBuilder: (event: LoginEvent) => new Credentials({
+      email: event.target.email.value,
+      password: event.target.password.value,
+    }),
+    functionUseCase: login,
+  });
+  const router = useRouter();
+
+  useEffect(() => {
+    if (formController.state instanceof SuccessState) {
+      console.log('logged');
+    }
+  }, [
+    formController.state,
+  ]);
+
+  return {
+    formController,
+  };
+};
 
 export default useLoginController;
