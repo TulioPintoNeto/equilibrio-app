@@ -6,7 +6,7 @@ jest.mock('next/server', () => ({
   NextRequest: jest.fn(() => ({ url: requestUrl })),
   NextResponse: { next: jest.fn(), redirect: jest.fn() },
 }));
-jest.mock('./data/Session', () => ({
+jest.mock('./data/auth/Session', () => ({
   Session: jest.fn(),
 }));
 jest.mock('iron-session/edge', () => ({
