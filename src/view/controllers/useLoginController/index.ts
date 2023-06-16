@@ -26,15 +26,6 @@ const useLoginController = () => {
     }),
     functionUseCase: login,
   });
-  const router = useRouter();
-
-  useEffect(() => {
-    if (formController.state instanceof SuccessState) {
-      console.log('logged');
-    }
-  }, [
-    formController.state,
-  ]);
 
   return {
     formController,

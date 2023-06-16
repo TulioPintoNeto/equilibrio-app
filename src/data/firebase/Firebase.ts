@@ -1,6 +1,6 @@
 import { FirebaseOptions, initializeApp } from 'firebase/app';
 import {
-  Auth, UserCredential, getAuth, signInWithEmailAndPassword,
+  Auth, getAuth, signInWithEmailAndPassword,
 } from 'firebase/auth';
 import { Credentials } from '@/domain/entities/Credentials';
 
