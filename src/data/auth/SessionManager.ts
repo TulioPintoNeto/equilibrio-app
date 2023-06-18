@@ -22,21 +22,27 @@ export class SessionManager {
     return this.#retryCount > 0;
   }
 
-  async #getSession(): Promise<Session> {
+  private static get options() {
     const password = Environment.getVariable('IRON_PASSWORD');
     const cookieName = Environment.getVariable('IRON_COOKIE');
+
+    return {
+      cookieName,
+      password,
+      cookieOptions: {
+        secure: Environment.isProduction,
+      },
+    };
+  }
+
+  async #getSession(): Promise<Session> {
+    const { options } = SessionManager;
 
     try {
       const sessionParams = await getIronSession<SessionParams>(
         this.#req,
         this.#res,
-        {
-          password,
-          cookieName,
-          cookieOptions: {
-            secure: Environment.isProduction,
-          },
-        },
+        options,
       );
 
       return new Session(sessionParams);
@@ -44,7 +50,8 @@ export class SessionManager {
       this.#retryCount--;
 
       if (this.#retry) {
-        return this.#getSession();
+        const retry = await this.#getSession();
+        return retry;
       }
 
       throw new TooManyRetries();

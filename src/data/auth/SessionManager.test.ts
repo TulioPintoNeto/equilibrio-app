@@ -1,8 +1,9 @@
 import { getIronSession } from 'iron-session';
-import { SessionManager } from './SessionManager';
+import { SessionManager, TooManyRetries } from './SessionManager';
 import { Session } from './Session';
+import { EnvVariableNotFound } from '../Environment';
 
-jest.mock('iron-session/edge', () => ({
+jest.mock('iron-session', () => ({
   getIronSession: jest.fn(),
 }));
 const mockGetIronSession = getIronSession as jest.Mock;
@@ -39,18 +40,17 @@ describe('SessionManager', () => {
 
   describe('failure', () => {
     it('should return null if no env variables', async () => {
-      const result = await getSession();
+      expect.assertions(1);
 
-      expect(result).toBe(null);
+      await expect(() => getSession()).rejects.toThrow(EnvVariableNotFound);
     });
 
     it('should retry at least 5 times if getIronSession throw an error', async () => {
-      mockGetIronSession.mockRejectedValue(new Error());
+      mockGetIronSession.mockImplementation(() => { throw new Error(); });
       process.env.IRON_PASSWORD = 'password';
       process.env.IRON_COOKIE = 'cookie';
 
-      await getSession();
-
+      expect(() => getSession()).rejects.toThrow(TooManyRetries);
       expect(mockGetIronSession).toHaveBeenCalledTimes(5);
     });
   });

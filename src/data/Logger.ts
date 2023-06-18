@@ -5,7 +5,7 @@ import { Environment } from './Environment';
 
 export abstract class Logger {
   static log(message: any) {
-    if (!Environment.isProduction) {
+    if (Environment.isLocal) {
       console.log(message);
     }
   }

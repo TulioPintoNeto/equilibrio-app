@@ -5,6 +5,10 @@ export abstract class Environment {
     return process.env.NODE_ENV === 'production';
   }
 
+  static get isLocal() {
+    return process.env.NODE_ENV === 'development';
+  }
+
   static getVariable(name: string): string {
     const variable = process.env[name];
 
