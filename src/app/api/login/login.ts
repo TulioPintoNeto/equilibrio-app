@@ -1,8 +1,8 @@
-import { NextApiRequest } from 'next';
+import { NextRequest } from 'next/server';
 import { Firebase } from '@/data/firebase/Firebase';
 import { getCredentials } from './getCredentials';
 
-export const login = async (req: NextApiRequest): Promise<boolean> => {
+export const login = async (req: NextRequest): Promise<boolean> => {
   const firebase = new Firebase();
   const credentials = getCredentials(req);
   return firebase.login(credentials);

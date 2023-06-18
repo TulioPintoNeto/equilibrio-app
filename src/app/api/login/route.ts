@@ -1,10 +1,9 @@
-import { NextApiRequest } from 'next';
-import { NextResponse } from 'next/server';
+import { NextRequest, NextResponse } from 'next/server';
 import { login } from './login';
 import { MissingParameters } from './paramsFromURL';
 import { AuthError } from '@/data/firebase/Firebase';
 
-export async function GET(req: NextApiRequest) {
+export async function GET(req: NextRequest) {
   try {
     const result = await login(req);
     return NextResponse.json({ success: result }, { status: 200 });
