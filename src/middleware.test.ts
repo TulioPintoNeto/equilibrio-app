@@ -32,41 +32,56 @@ describe('middleware', () => {
     environmentMocking.resetToInitial();
   });
 
-  it('should redirect the response and log unauthorized message', async () => {
-    mockGetIronSession.mockResolvedValue(mockSession({ isLogged: false }));
-    setEnvVariables();
-    const result = await middleware(req);
+  describe('success', () => {
+    it('should return NextResponse.next', async () => {
+      mockGetIronSession.mockResolvedValue(mockSession({ isLogged: true }));
+      setEnvVariables();
+      const result = await middleware(req);
 
-    expect(mockLog).toBeCalledWith('Unauthorized error occurred in middleware');
-    expect(result).toEqual(
-      NextResponse
-        .redirect(new URL('/login', req.url)),
-    );
+      expect(result).toEqual(
+        NextResponse
+          .next(),
+      );
+    });
   });
 
-  it('should redirect the response and log missing env variable message', async () => {
-    mockGetIronSession.mockRejectedValue(new Error(''));
-    const result = await middleware(req);
+  describe('failure', () => {
+    it('should redirect the response and log unauthorized message', async () => {
+      mockGetIronSession.mockResolvedValue(mockSession({ isLogged: false }));
+      setEnvVariables();
+      const result = await middleware(req);
 
-    expect(mockLog).toBeCalledWith('Unauthorized error occurred in middleware');
-    expect(mockLog).toBeCalledWith('Environment variable not found in middleware');
-    expect(result).toEqual(
-      NextResponse
-        .redirect(new URL('/login', req.url)),
-    );
-  });
+      expect(mockLog).toBeCalledWith('Unauthorized error occurred in middleware');
+      expect(result).toEqual(
+        NextResponse
+          .redirect(new URL('/login', req.url)),
+      );
+    });
 
-  it('should redirect the response and log too many retries message', async () => {
-    mockGetIronSession.mockRejectedValue(
-      new Error(''),
-    );
-    setEnvVariables();
-    const result = await middleware(req);
+    it('should redirect the response and log missing env variable message', async () => {
+      mockGetIronSession.mockRejectedValue(new Error(''));
+      const result = await middleware(req);
 
-    expect(mockLog).toBeCalledWith('Too many retries in middleware');
-    expect(result).toEqual(
-      NextResponse
-        .redirect(new URL('/login', req.url)),
-    );
+      expect(mockLog).toBeCalledWith('Unauthorized error occurred in middleware');
+      expect(mockLog).toBeCalledWith('Environment variable not found in middleware');
+      expect(result).toEqual(
+        NextResponse
+          .redirect(new URL('/login', req.url)),
+      );
+    });
+
+    it('should redirect the response and log too many retries message', async () => {
+      mockGetIronSession.mockRejectedValue(
+        new Error(''),
+      );
+      setEnvVariables();
+      const result = await middleware(req);
+
+      expect(mockLog).toBeCalledWith('Too many retries in middleware');
+      expect(result).toEqual(
+        NextResponse
+          .redirect(new URL('/login', req.url)),
+      );
+    });
   });
 });
