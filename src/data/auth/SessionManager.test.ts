@@ -46,11 +46,11 @@ describe('SessionManager', () => {
     });
 
     it('should retry at least 5 times if getIronSession throw an error', async () => {
-      mockGetIronSession.mockImplementation(() => { throw new Error(); });
+      mockGetIronSession.mockRejectedValue(new Error());
       process.env.IRON_PASSWORD = 'password';
       process.env.IRON_COOKIE = 'cookie';
 
-      expect(() => getSession()).rejects.toThrow(TooManyRetries);
+      await expect(() => getSession()).rejects.toThrow(TooManyRetries);
       expect(mockGetIronSession).toHaveBeenCalledTimes(5);
     });
   });

@@ -23,8 +23,8 @@ export class SessionManager {
   }
 
   private static get options() {
-    const password = Environment.getVariable('IRON_PASSWORD');
     const cookieName = Environment.getVariable('IRON_COOKIE');
+    const password = Environment.getVariable('IRON_PASSWORD');
 
     return {
       cookieName,
