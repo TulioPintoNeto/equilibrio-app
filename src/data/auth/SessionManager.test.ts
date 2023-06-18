@@ -1,4 +1,4 @@
-import { getIronSession } from 'iron-session/edge';
+import { getIronSession } from 'iron-session';
 import { SessionManager } from './SessionManager';
 import { Session } from './Session';
 

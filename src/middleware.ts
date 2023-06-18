@@ -1,17 +1,20 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { SessionManager } from './data/auth/SessionManager';
-
-export const unauthorizedUrl = (reqUrl: string) => new URL('/login', reqUrl);
+import { UnauthorizedError, middlewareError } from './middlewareError';
 
 export async function middleware(req: NextRequest) {
-  const res = NextResponse.next();
-  const session = await new SessionManager(req, res).get();
+  try {
+    const res = NextResponse.next();
+    const session = await new SessionManager(req, res).get();
 
-  if (!session?.user) {
-    return NextResponse.redirect(unauthorizedUrl(req.url));
+    if (session.isLogged) {
+      return res;
+    }
+
+    throw new UnauthorizedError();
+  } catch (err) {
+    return middlewareError(req, err);
   }
-
-  return res;
 }
 
 export const config = {

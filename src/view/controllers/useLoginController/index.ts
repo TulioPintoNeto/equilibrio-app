@@ -1,9 +1,7 @@
-import { FormEvent, useEffect } from 'react';
-import { useRouter } from 'next/navigation';
+import { FormEvent } from 'react';
 import { Credentials } from '@/domain/entities/Credentials';
 import { login } from '@/domain/usecases/login';
 import { useFormController } from '@/core/useFormController';
-import { SuccessState } from '@/core/State';
 
 interface Target extends EventTarget {
   email: {

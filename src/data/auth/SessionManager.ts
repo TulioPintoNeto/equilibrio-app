@@ -1,7 +1,9 @@
 import { ServerResponse, IncomingMessage } from 'http';
-import { getIronSession } from 'iron-session/edge';
+import { getIronSession } from 'iron-session';
 import { Environment } from '../Environment';
-import { Session } from './Session';
+import { Session, SessionParams } from './Session';
+
+export class TooManyRetries extends Error {}
 
 export class SessionManager {
   #retryCount = 5;
@@ -16,46 +18,42 @@ export class SessionManager {
     this.#res = res;
   }
 
-  async #getSession(): Promise<Session | null> {
-    const password = process.env.IRON_PASSWORD;
-    const cookieName = process.env.IRON_COOKIE;
-
-    if (!password || !cookieName) {
-      return null;
-    }
-
-    const sessionParams = await getIronSession(this.#req, this.#res, {
-      password,
-      cookieName,
-      cookieOptions: {
-        secure: Environment.isProduction(),
-      },
-    });
-
-    return new Session(sessionParams);
-  }
-
   get #retry() {
     return this.#retryCount > 0;
   }
 
-  async #sessionRetrier(): Promise<Session | null> {
+  async #getSession(): Promise<Session> {
+    const password = Environment.getVariable('IRON_PASSWORD');
+    const cookieName = Environment.getVariable('IRON_COOKIE');
+
     try {
-      const session = await this.#getSession();
-      return session;
+      const sessionParams = await getIronSession<SessionParams>(
+        this.#req,
+        this.#res,
+        {
+          password,
+          cookieName,
+          cookieOptions: {
+            secure: Environment.isProduction,
+          },
+        },
+      );
+
+      return new Session(sessionParams);
     } catch {
       this.#retryCount--;
+
       if (this.#retry) {
-        return this.#sessionRetrier();
+        return this.#getSession();
       }
 
-      return null;
+      throw new TooManyRetries();
     }
   }
 
-  get(): Promise<Session | null> {
+  get(): Promise<Session> {
     this.#retryCount = 5;
 
-    return this.#sessionRetrier();
+    return this.#getSession();
   }
 }
