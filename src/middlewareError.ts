@@ -1,29 +1,30 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { EnvVariableNotFound } from './data/Environment';
 import { TooManyRetries } from './data/auth/SessionManager';
+import { Logger } from './data/Logger';
 
 export class UnauthorizedError extends Error {}
 
-const redirectReqWithStatus = (req: NextRequest) => (status: number) => NextResponse
-  .redirect(new URL('/login', req.url), { status });
+export const unauthorizedUrl = (url: string) => new URL('/login', url);
+
+const redirect = (req: NextRequest) => NextResponse
+  .redirect(unauthorizedUrl(req.url));
 
 export const middlewareError = (
   req: NextRequest,
   err: unknown,
 ): NextResponse => {
-  const redirectWithStatus = redirectReqWithStatus(req);
-
   if (err instanceof UnauthorizedError) {
-    return redirectWithStatus(401);
+    Logger.log('Unauthorized error occurred in middleware');
   }
 
   if (err instanceof EnvVariableNotFound) {
-    return redirectWithStatus(400);
+    Logger.log('Environment variable not found in middleware');
   }
 
   if (err instanceof TooManyRetries) {
-    return redirectWithStatus(500);
+    Logger.log('Too many retries in middleware');
   }
 
-  return redirectWithStatus(502);
+  return redirect(req);
 };

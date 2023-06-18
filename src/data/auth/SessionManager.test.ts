@@ -23,7 +23,7 @@ describe('SessionManager', () => {
 
   describe('success', () => {
     const testSession = new Session({
-      user: 'abc',
+      isLogged: true,
     });
 
     it('should return session object', async () => {

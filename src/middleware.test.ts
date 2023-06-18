@@ -1,35 +1,25 @@
-import { NextRequest, NextResponse } from 'next/server';
-import { middleware, unauthorizedUrl } from './middleware';
+import { NextResponse } from 'next/server';
+import { mockSession } from './backend/mock-generators/mockSession';
+import { MockNextRequest } from './backend/mocks/NextRequest';
+import { middleware } from './middleware';
 
-const requestUrl = 'https://localhost:3000/';
-jest.mock('next/server', () => ({
-  NextRequest: jest.fn(() => ({ url: requestUrl })),
-  NextResponse: { next: jest.fn(), redirect: jest.fn() },
-}));
-jest.mock('./data/auth/Session', () => ({
-  Session: jest.fn(),
-}));
-jest.mock('iron-session/edge', () => ({
+jest.mock('iron-session', () => ({
   getIronSession: jest.fn(),
 }));
-const MockNextRequest = NextRequest as jest.Mock;
-const mockNext = NextResponse.next as jest.Mock;
-const mockRedirect = NextResponse.redirect as jest.Mock;
 
 describe('middleware', () => {
-  const req = MockNextRequest();
+  const mockGetIronSession = jest.fn();
 
-  it('if no user, should redirect the response', async () => {
-    const res = {};
-    const redirectRes = {};
-    const testUnauthorizedUrl = unauthorizedUrl(requestUrl);
-    mockNext.mockReturnValue(res);
-    mockRedirect.mockReturnValue(redirectRes);
+  const requestUrl = 'https://localhost:3000/';
+  const req = new MockNextRequest(requestUrl);
 
+  it('should redirect the response', async () => {
+    mockGetIronSession.mockResolvedValue(mockSession({ isLogged: false }));
     const result = await middleware(req);
 
-    expect(mockNext).toBeCalled();
-    expect(mockRedirect).toBeCalledWith(testUnauthorizedUrl);
-    expect(result).toBe(redirectRes);
+    expect(result).toEqual(
+      NextResponse
+        .redirect(new URL('/login', req.url)),
+    );
   });
 });
