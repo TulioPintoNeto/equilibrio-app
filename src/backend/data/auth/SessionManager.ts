@@ -1,9 +1,11 @@
+/* eslint-disable dot-notation */
 import { IncomingMessage } from 'http';
 import { createResponse, getIronSession } from 'iron-session';
 import { Environment } from '../../../data/Environment';
 import { Session, SessionParams } from './Session';
 
 export class TooManyRetries extends Error {}
+export class EnvVariableNotFound extends Error {}
 
 export class SessionManager {
   #retryCount = 5;
@@ -22,13 +24,23 @@ export class SessionManager {
     return this.#retryCount > 0;
   }
 
-  private static get options() {
-    const cookieName = Environment.getVariable('IRON_COOKIE');
-    const password = Environment.getVariable('IRON_PASSWORD');
+  private static get env() {
+    const cookieName = process.env.IRON_COOKIE;
+    const password = process.env.IRON_PASSWORD;
+
+    if (!cookieName || !password) {
+      throw new EnvVariableNotFound();
+    }
 
     return {
       cookieName,
       password,
+    };
+  }
+
+  private static get options() {
+    return {
+      ...this.env,
       cookieOptions: {
         secure: Environment.isProduction,
       },
