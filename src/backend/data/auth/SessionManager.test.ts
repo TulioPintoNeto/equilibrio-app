@@ -1,7 +1,5 @@
 import { getIronSession } from 'iron-session';
-import { SessionManager, TooManyRetries } from './SessionManager';
-import { Session } from './Session';
-import { EnvVariableNotFound } from '../../../data/Environment';
+import { EnvVariableNotFound, SessionManager, TooManyRetries } from './SessionManager';
 
 jest.mock('iron-session', () => ({
   getIronSession: jest.fn(),
@@ -23,9 +21,9 @@ describe('SessionManager', () => {
   const getSession = () => new SessionManager({} as Request, {} as Response).get();
 
   describe('success', () => {
-    const testSession = new Session({
+    const testSession = {
       isLogged: true,
-    });
+    };
 
     it('should return session object', async () => {
       process.env.IRON_PASSWORD = 'password';

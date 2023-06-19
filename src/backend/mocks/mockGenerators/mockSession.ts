@@ -1,6 +1,9 @@
-import { Session, SessionParams } from '@/backend/data/auth/Session';
+/* eslint-disable @typescript-eslint/no-empty-function */
+import { SessionParams } from '@/backend/data/auth/SessionManager';
 
-export const mockSession = (optionalParams: Partial<SessionParams>): Session => new Session({
+export const mockSession = (optionalParams: Partial<SessionParams>): SessionParams => ({
   isLogged: true,
+  save: async () => {},
+  destroy: async () => {},
   ...optionalParams,
 });

@@ -24,15 +24,13 @@ export class Firebase {
     this.#auth = getAuth(app);
   }
 
-  async login(credentials: Credentials): Promise<boolean> {
+  async login(credentials: Credentials): Promise<void> {
     try {
       await signInWithEmailAndPassword(
         this.#auth,
         credentials.email,
         credentials.password,
       );
-
-      return true;
     } catch (e) {
       throw new AuthError();
     }

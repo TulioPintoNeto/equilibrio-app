@@ -6,4 +6,8 @@ export abstract class Environment {
   static get isLocal() {
     return process.env.NODE_ENV === 'development';
   }
+
+  static get host() {
+    return process.env.HOST;
+  }
 }

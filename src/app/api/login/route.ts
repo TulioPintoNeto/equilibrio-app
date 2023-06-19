@@ -9,12 +9,12 @@ export async function GET(req: NextRequest) {
   const session = await sessionManager.get();
 
   try {
-    const result = await login(req);
+    await login(req);
 
     session.isLogged = true;
-    session.save();
+    await session.save();
 
-    return sessionManager.response(200, { success: result });
+    return sessionManager.response(200, { isLogged: true });
   } catch (e: unknown) {
     session.isLogged = false;
     return loginError(e, sessionManager);

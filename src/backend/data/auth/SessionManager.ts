@@ -2,7 +2,12 @@
 import { IncomingMessage } from 'http';
 import { createResponse, getIronSession } from 'iron-session';
 import { Environment } from '../../../data/Environment';
-import { Session, SessionParams } from './Session';
+
+export interface SessionParams {
+  isLogged: boolean;
+  destroy: () => Promise<void>;
+  save: () => Promise<void>;
+}
 
 export class TooManyRetries extends Error {}
 export class EnvVariableNotFound extends Error {}
@@ -47,7 +52,7 @@ export class SessionManager {
     };
   }
 
-  async #getSession(): Promise<Session> {
+  async #getSession(): Promise<SessionParams> {
     const { options } = SessionManager;
 
     try {
@@ -57,7 +62,7 @@ export class SessionManager {
         options,
       );
 
-      return new Session(sessionParams);
+      return sessionParams;
     } catch {
       this.#retryCount--;
 
@@ -70,7 +75,7 @@ export class SessionManager {
     }
   }
 
-  get(): Promise<Session> {
+  get(): Promise<SessionParams> {
     this.#retryCount = 5;
 
     return this.#getSession();
@@ -78,6 +83,6 @@ export class SessionManager {
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   response(status: number, body: any) {
-    createResponse(this.#res, JSON.stringify(body), { status });
+    return createResponse(this.#res, JSON.stringify(body), { status });
   }
 }

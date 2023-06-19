@@ -1,4 +1,5 @@
 import { FormEvent, useState } from 'react';
+import { AxiosError } from 'axios';
 import {
   EmptyState,
   ErrorState,
@@ -29,8 +30,8 @@ export const useFormController = <EventType extends FormEvent, Entity>({
       await functionUseCase(entity);
       setState(new SuccessState());
     } catch (error) {
-      if (error instanceof Error) {
-        setState(new ErrorState(error.message));
+      if (error instanceof AxiosError && error.response) {
+        setState(new ErrorState(error.response.data.message));
       } else {
         setState(ErrorState.Unnexpected());
       }
