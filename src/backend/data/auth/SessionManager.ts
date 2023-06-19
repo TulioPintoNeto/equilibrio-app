@@ -1,5 +1,5 @@
-import { ServerResponse, IncomingMessage } from 'http';
-import { getIronSession } from 'iron-session';
+import { IncomingMessage } from 'http';
+import { createResponse, getIronSession } from 'iron-session';
 import { Environment } from '../../../data/Environment';
 import { Session, SessionParams } from './Session';
 
@@ -8,11 +8,11 @@ export class TooManyRetries extends Error {}
 export class SessionManager {
   #retryCount = 5;
   #req: IncomingMessage | Request;
-  #res: ServerResponse<IncomingMessage> | Response;
+  #res: Response;
 
   constructor(
     req: IncomingMessage | Request,
-    res: ServerResponse<IncomingMessage> | Response,
+    res: Response,
   ) {
     this.#req = req;
     this.#res = res;
@@ -62,5 +62,10 @@ export class SessionManager {
     this.#retryCount = 5;
 
     return this.#getSession();
+  }
+
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  response(status: number, body: any) {
+    createResponse(this.#res, JSON.stringify(body), { status });
   }
 }
