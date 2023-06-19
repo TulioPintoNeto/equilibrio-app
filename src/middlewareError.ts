@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { EnvVariableNotFound } from './data/Environment';
-import { TooManyRetries } from './data/auth/SessionManager';
+import { TooManyRetries } from './backend/data/auth/SessionManager';
 import { Logger } from './data/Logger';
 
 export class UnauthorizedError extends Error {}

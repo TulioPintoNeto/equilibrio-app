@@ -1,6 +1,6 @@
 import { NextResponse } from 'next/server';
 import { getIronSession } from 'iron-session';
-import { mockSession } from './backend/mockGenerators/mockSession';
+import { mockSession } from './backend/mocks/mockGenerators/mockSession';
 import { MockNextRequest } from './backend/mocks/NextRequest';
 import { middleware } from './middleware';
 import { Logger } from './data/Logger';

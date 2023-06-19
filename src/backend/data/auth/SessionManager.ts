@@ -1,6 +1,6 @@
 import { ServerResponse, IncomingMessage } from 'http';
 import { getIronSession } from 'iron-session';
-import { Environment } from '../Environment';
+import { Environment } from '../../../data/Environment';
 import { Session, SessionParams } from './Session';
 
 export class TooManyRetries extends Error {}

@@ -1,5 +1,5 @@
 import { NextRequest } from 'next/server';
-import { Firebase } from '@/data/firebase/Firebase';
+import { Firebase } from '@/backend/data/firebase/Firebase';
 import { getCredentials } from './getCredentials';
 
 export const login = async (req: NextRequest): Promise<boolean> => {

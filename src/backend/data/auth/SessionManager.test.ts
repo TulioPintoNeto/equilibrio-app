@@ -1,7 +1,7 @@
 import { getIronSession } from 'iron-session';
 import { SessionManager, TooManyRetries } from './SessionManager';
 import { Session } from './Session';
-import { EnvVariableNotFound } from '../Environment';
+import { EnvVariableNotFound } from '../../../data/Environment';
 
 jest.mock('iron-session', () => ({
   getIronSession: jest.fn(),

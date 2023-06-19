@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { login } from './login';
 import { MissingParameters } from './paramsFromURL';
-import { AuthError } from '@/data/firebase/Firebase';
+import { AuthError } from '@/backend/data/firebase/Firebase';
 
 export async function GET(req: NextRequest) {
   try {

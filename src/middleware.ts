@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { SessionManager } from './data/auth/SessionManager';
+import { SessionManager } from './backend/data/auth/SessionManager';
 import { UnauthorizedError, middlewareError } from './middlewareError';
 
 export async function middleware(req: NextRequest) {
