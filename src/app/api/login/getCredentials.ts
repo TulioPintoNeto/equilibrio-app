@@ -1,14 +1,15 @@
 import { NextRequest } from 'next/server';
 import { Credentials } from '@/domain/entities/Credentials';
-import { paramsFromURL } from './paramsFromURL';
 
-export class MissingURL extends Error {}
+export class MissingReqBody extends Error {}
 
-export const getCredentials = (req: NextRequest) => {
-  if (!req.url) {
-    throw new MissingURL();
+export const getCredentials = async (req: NextRequest): Promise<Credentials> => {
+  const body = await req.json();
+
+  console.log(body);
+  if (!body.email || !body.password) {
+    throw new MissingReqBody();
   }
 
-  const params = ['email', 'password'];
-  return paramsFromURL<Credentials>(req.url, params);
+  return body;
 };

@@ -4,7 +4,8 @@ import { Credentials } from '@/domain/entities/Credentials';
 const path = 'api/login';
 
 export const login = async (credentials: Credentials): Promise<void> => {
-  await server.get(path, {
-    params: credentials,
-  });
+  await server.post(
+    path,
+    credentials,
+  );
 };

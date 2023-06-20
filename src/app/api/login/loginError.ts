@@ -1,6 +1,6 @@
 import { SessionManager } from '@/backend/data/auth/SessionManager';
 import { AuthError } from '@/backend/data/firebase/Firebase';
-import { MissingParameters } from './paramsFromURL';
+import { MissingParameters } from '../../../backend/data/helpers/paramsFromURL';
 
 export const loginError = (e: unknown, sessionManager: SessionManager) => {
   if (e instanceof AuthError) {
@@ -16,6 +16,8 @@ export const loginError = (e: unknown, sessionManager: SessionManager) => {
       { message: 'Parâmetros obrigatórios não informados' },
     );
   }
+
+  console.log(e);
 
   return sessionManager.response(
     400,
