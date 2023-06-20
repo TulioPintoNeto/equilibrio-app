@@ -44,10 +44,14 @@ export class SessionManager {
   }
 
   private static get options() {
+    const ageOfFirebaseSession = 60 * 60;
+    const securityTimeToExpireBeforeFirebase = 60;
+
     return {
       ...this.env,
       cookieOptions: {
         secure: Environment.isProduction,
+        maxAge: ageOfFirebaseSession - securityTimeToExpireBeforeFirebase,
       },
     };
   }
