@@ -1,10 +1,11 @@
 import { FirebaseOptions, initializeApp } from 'firebase/app';
 import {
-  Auth, getAuth, signInWithEmailAndPassword,
+  Auth, getAuth, sendPasswordResetEmail, signInWithEmailAndPassword,
 } from 'firebase/auth';
 import { Credentials } from '@/domain/entities/Credentials';
 
 export class AuthError extends Error {}
+export class ForgotPasswordError extends Error {}
 
 export class Firebase {
   #options: FirebaseOptions;
@@ -33,6 +34,14 @@ export class Firebase {
       );
     } catch (e) {
       throw new AuthError();
+    }
+  }
+
+  async forgotPassword(email: string): Promise<void> {
+    try {
+      await sendPasswordResetEmail(this.#auth, email);
+    } catch (e) {
+      throw new ForgotPasswordError();
     }
   }
 }
