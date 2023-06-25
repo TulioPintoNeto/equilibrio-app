@@ -1,7 +1,7 @@
 import React, { JSX } from 'react';
 import { FormButton } from '@/view/components/Button';
 import { FormControllerOutput } from '../useFormController';
-import { ErrorState } from '../State';
+import { ErrorState, LoadingState } from '../State';
 
 type Component = () => JSX.Element;
 
@@ -29,7 +29,11 @@ export function FormPage({
             </div>
           ))}
           <div>
-            <FormButton type="submit" text={buttonText} />
+            <FormButton
+              loading={controller.state instanceof LoadingState}
+              type="submit"
+              text={buttonText}
+            />
           </div>
           {controller.state instanceof ErrorState && (
             <p className="text-red-500 text-xs italic absolute">

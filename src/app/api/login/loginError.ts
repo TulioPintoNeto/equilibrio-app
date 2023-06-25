@@ -17,8 +17,6 @@ export const loginError = (e: unknown, sessionManager: SessionManager) => {
     );
   }
 
-  console.log(e);
-
   return sessionManager.response(
     400,
     { message: 'Um erro inesperado ocorreu' },

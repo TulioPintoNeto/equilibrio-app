@@ -30,7 +30,7 @@ export const useFormController = <EventType extends FormEvent, Entity>({
       await functionUseCase(entity);
       setState(new SuccessState());
     } catch (error) {
-      if (error instanceof AxiosError && error.response) {
+      if (error instanceof AxiosError && error.response && error.response.data.message) {
         setState(new ErrorState(error.response.data.message));
       } else {
         setState(ErrorState.Unnexpected());
