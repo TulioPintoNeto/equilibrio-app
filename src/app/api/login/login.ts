@@ -1,6 +1,6 @@
 import { NextRequest } from 'next/server';
 import { Firebase } from '@/backend/data/firebase/Firebase';
-import { getParams } from '@/backend/data/helpers/paramsFromAny';
+import { getParams } from '@/backend/data/helpers/getParams';
 import { Credentials } from '@/domain/entities/Credentials';
 
 export const login = async (req: NextRequest): Promise<void> => {

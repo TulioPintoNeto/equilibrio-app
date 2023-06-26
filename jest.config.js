@@ -5,7 +5,8 @@ module.exports = {
   moduleDirectories: ['node_modules', 'src'],
   moduleNameMapper: {
     '^@/data/(.*)$': '<rootDir>/src/data/$1',
+    '^@/core/(.*)$': '<rootDir>/src/core/$1',
+    '^@/backend/(.*)$': '<rootDir>/src/backend/$1',
   },
   modulePaths: ['<rootDir>/src/'],
-  modulePathIgnorePatterns: ['<rootDir>/src/app', '<rootDir>/src/pages'],
 };

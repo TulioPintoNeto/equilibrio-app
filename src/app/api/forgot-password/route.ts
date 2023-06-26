@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { forgotPassword } from './forgotPassword';
 
-export async function POST(req: NextRequest, res: NextResponse) {
+export async function POST(req: NextRequest) {
   try {
     await forgotPassword(req);
 

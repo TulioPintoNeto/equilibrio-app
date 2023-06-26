@@ -1,6 +1,6 @@
 import { SessionManager } from '@/backend/data/auth/SessionManager';
 import { AuthError } from '@/backend/data/firebase/Firebase';
-import { MissingParametersError } from '@/backend/data/helpers/paramsFromAny';
+import { MissingParametersError } from '@/backend/data/helpers/getParams';
 
 export const loginError = (e: unknown, sessionManager: SessionManager) => {
   if (e instanceof AuthError) {
