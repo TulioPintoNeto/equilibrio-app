@@ -1,7 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { getAuth, sendPasswordResetEmail } from 'firebase/auth';
 import { POST } from './route';
-import { EnvironmentMocking } from '@/core/testUtils/EnvironmentMocking';
 
 jest.mock('firebase/auth', () => ({
   ...jest.requireActual('firebase/auth'),
@@ -15,16 +14,7 @@ describe('forgot-password', () => {
   const req = {
     json: async () => body,
   };
-  const environmentMocking = new EnvironmentMocking();
   const mockSendPasswordResetEmail = sendPasswordResetEmail as jest.Mock;
-
-  beforeEach(() => {
-    environmentMocking.resetMock();
-  });
-
-  afterAll(() => {
-    environmentMocking.resetToInitial();
-  });
 
   it('should export a function named POST', () => {
     expect(POST.name).toBe('POST');
