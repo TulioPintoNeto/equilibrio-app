@@ -1,4 +1,4 @@
-import { server } from '@/core/server';
+import { server } from '@/frontend/core/server';
 
 const path = 'api/forgot-password';
 

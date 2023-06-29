@@ -1,12 +1,8 @@
 import { FormEvent, useState } from 'react';
 import { AxiosError } from 'axios';
 import {
-  EmptyState,
-  ErrorState,
-  LoadingState,
-  State,
-  SuccessState,
-} from '../State';
+  EmptyState, ErrorState, LoadingState, State, SuccessState,
+} from '@/frontend/core/State';
 
 interface Params<EventType extends FormEvent, Entity> {
   entityBuilder: (eventType: EventType) => Entity;

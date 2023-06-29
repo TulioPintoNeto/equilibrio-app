@@ -1,5 +1,5 @@
-import { server } from '@/core/server';
 import { Credentials } from '@/domain/entities/Credentials';
+import { server } from '@/frontend/core/server';
 
 const path = 'api/login';
 

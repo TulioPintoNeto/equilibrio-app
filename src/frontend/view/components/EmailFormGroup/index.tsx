@@ -1,6 +1,6 @@
 import React from 'react';
-import { Input } from '@/view/components/Input';
-import { Label } from '@/view/components/Label';
+import { Label } from '../Label';
+import { Input } from '../Input';
 
 export function EmailFormGroup() {
   return (

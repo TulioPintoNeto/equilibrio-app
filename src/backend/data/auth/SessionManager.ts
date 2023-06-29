@@ -1,7 +1,7 @@
 /* eslint-disable dot-notation */
 import { IncomingMessage } from 'http';
 import { createResponse, getIronSession } from 'iron-session';
-import { Environment } from '../../../data/Environment';
+import { Environment } from '@/data/Environment';
 
 export interface SessionParams {
   isLogged: boolean;

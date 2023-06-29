@@ -2,7 +2,7 @@ import { getAuth, signInWithEmailAndPassword } from 'firebase/auth';
 import { NextRequest } from 'next/server';
 import { getIronSession } from 'iron-session';
 import { POST } from './route';
-import { EnvironmentMocking } from '@/core/testUtils/EnvironmentMocking';
+import { EnvironmentMocking } from '@/test/EnvironmentMocking';
 
 jest.mock('firebase/auth', () => ({
   ...jest.requireActual('firebase/auth'),

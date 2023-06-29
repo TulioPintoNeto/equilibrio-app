@@ -1,6 +1,6 @@
 import React from 'react';
-import { Input } from '@/view/components/Input';
-import { Label } from '@/view/components/Label';
+import { Input } from '../Input';
+import { Label } from '../Label';
 
 interface Props {
   autoComplete?: boolean;

@@ -1,7 +1,7 @@
 import React, { JSX } from 'react';
-import { FormButton } from '@/view/components/Button';
-import { FormControllerOutput } from '../useFormController';
-import { ErrorState, LoadingState } from '../State';
+import { FormControllerOutput } from '../../controllers/useFormController';
+import { ErrorState, LoadingState } from '../../../core/State';
+import { FormButton } from '../Button';
 
 type Component = () => JSX.Element;
 

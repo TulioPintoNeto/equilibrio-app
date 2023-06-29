@@ -1,7 +1,7 @@
 import Image from 'next/image';
 import React from 'react';
 import EquilibrioLogo from '@/assets/equilibrio-academia-logo.png';
-import { Title } from '@/view/components/Title';
+import { Title } from '@/frontend/view/components/Title';
 
 export function Header() {
   return (

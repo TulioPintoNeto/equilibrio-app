@@ -1,6 +1,6 @@
 import { FormEvent } from 'react';
-import { useFormController } from '@/core/useFormController';
-import { forgotPassword } from '@/domain/usecases/forgotPassword';
+import { useFormController } from '@/frontend/view/controllers/useFormController';
+import { forgotPassword } from '@/frontend/domain/usecases/forgotPassword';
 
 interface Target extends EventTarget {
   email: {

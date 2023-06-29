@@ -1,5 +1,5 @@
 import React from 'react';
-import { Title } from '@/view/components/Title';
+import { Title } from '@/frontend/view/components/Title';
 
 export function Header() {
   return (

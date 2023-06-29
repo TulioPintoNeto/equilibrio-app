@@ -3,8 +3,8 @@ import { getIronSession } from 'iron-session';
 import { mockSession } from './backend/mocks/mockGenerators/mockSession';
 import { MockNextRequest } from './backend/mocks/NextRequest';
 import { middleware } from './middleware';
+import { EnvironmentMocking } from './test/EnvironmentMocking';
 import { Logger } from './data/Logger';
-import { EnvironmentMocking } from './core/testUtils/EnvironmentMocking';
 
 jest.mock('iron-session', () => ({
   getIronSession: jest.fn(),
