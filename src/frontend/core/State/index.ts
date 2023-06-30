@@ -9,7 +9,7 @@ export class ErrorState {
     this.error = error;
   }
 
-  static Unnexpected() {
+  static Unexpected() {
     return new ErrorState('Algo inesperado ocorreu');
   }
 }

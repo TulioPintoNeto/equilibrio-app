@@ -3,6 +3,7 @@ import { useRouter } from 'next/navigation';
 import { Credentials } from '@/domain/entities/Credentials';
 import { login } from '@/frontend/domain/usecases/login';
 import { useFormController } from '@/frontend/view/controllers/useFormController';
+import { Routes } from '@/frontend/core/routes';
 
 interface Target extends EventTarget {
   email: {
@@ -26,7 +27,7 @@ const useLoginController = () => {
     }),
     functionUseCase: async (entity: Credentials) => {
       await login(entity);
-      router.push('/');
+      router.push(Routes.Home);
     },
   });
 

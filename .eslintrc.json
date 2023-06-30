@@ -13,6 +13,7 @@
     }
   ],
   "rules": {
+    "@typescript-eslint/no-shadow": "error",
     "import/extensions": "off",
     "import/no-extraneous-dependencies": [
       "error",
@@ -32,6 +33,7 @@
     ],
     "max-classes-per-file": "off",
     "no-underscore-dangle": "off",
+    "no-shadow": "off",
     "react/button-has-type": "off",
     "react/jsx-filename-extension": ["warn", { "extensions": [".jsx", ".tsx"] }],
     "react/jsx-pascal-case": ["error", { "allowLeadingUnderscore": true }],

@@ -1,8 +1,7 @@
-import { FormEvent, useState } from 'react';
+import { FormEvent } from 'react';
 import { AxiosError } from 'axios';
-import {
-  EmptyState, ErrorState, LoadingState, State, SuccessState,
-} from '@/frontend/core/State';
+import { useStateController } from '../useStateController';
+import { ErrorState, State } from '@/frontend/core/State';
 
 interface Params<EventType extends FormEvent, Entity> {
   entityBuilder: (eventType: EventType) => Entity;
@@ -18,27 +17,23 @@ export const useFormController = <EventType extends FormEvent, Entity>({
   entityBuilder,
   functionUseCase,
 }: Params<EventType, Entity>): FormControllerOutput => {
-  const [state, setState] = useState<State<void>>(new EmptyState());
+  const { state, executeWithState } = useStateController();
 
-  const execute = async (entity: Entity) => {
-    setState(new LoadingState());
-    try {
-      await functionUseCase(entity);
-      setState(new SuccessState());
-    } catch (error) {
-      if (error instanceof AxiosError && error.response && error.response.data.message) {
-        setState(new ErrorState(error.response.data.message));
-      } else {
-        setState(ErrorState.Unnexpected());
-      }
+  const errorFunction = (e: unknown) => {
+    if (e instanceof AxiosError && e.response && e.response.data.message) {
+      return new ErrorState(e.response.data.message);
     }
+    return ErrorState.Unexpected();
   };
 
   const onSubmit = (event: unknown) => {
     const eventType = event as EventType;
     eventType.preventDefault();
     const entity = entityBuilder(eventType);
-    execute(entity);
+    executeWithState(
+      async () => functionUseCase(entity),
+      errorFunction,
+    );
   };
 
   return {
