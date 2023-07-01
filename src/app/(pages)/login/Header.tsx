@@ -12,7 +12,7 @@ export function Header() {
         alt="Your Company"
         width={140}
       />
-      <Title text="Entre em sua conta" />
+      <Title className="mt-10" text="Entre em sua conta" />
     </div>
   );
 }
