@@ -1,3 +1,4 @@
+/** @jest-environment jsdom */
 import { usePathname, useRouter } from 'next/navigation';
 import useSWR from 'swr';
 import { renderHook } from '@testing-library/react';

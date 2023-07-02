@@ -58,14 +58,16 @@ describe('login', () => {
     process.env.IRON_COOKIE = 'cookie';
     process.env.IRON_PASSWORD = 'password';
     const session = {
-      isLogged: false,
+      user: {
+        isLogged: false,
+      },
       save: jest.fn(),
     };
     mockGetIronSession.mockResolvedValue(session);
 
     const response = await POST(req as NextRequest);
 
-    expect(session.isLogged).toBe(true);
+    expect(session.user.isLogged).toBe(true);
     expect(session.save).toHaveBeenCalled();
     expect(response.status).toBe(status);
   });
