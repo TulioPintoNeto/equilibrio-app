@@ -2,6 +2,7 @@
 import { IncomingMessage } from 'http';
 import { createResponse, getIronSession } from 'iron-session';
 import { Environment } from '@/data/Environment';
+import { AuthManager } from './AuthManager';
 
 export interface SessionParams {
   isLogged: boolean;
@@ -44,14 +45,13 @@ export class SessionManager {
   }
 
   private static get options() {
-    const ageOfFirebaseSession = 60 * 60;
-    const securityTimeToExpireBeforeFirebase = 60;
+    const securityTimeToExpireBefore = 60;
 
     return {
       ...this.env,
       cookieOptions: {
         secure: Environment.isProduction,
-        maxAge: ageOfFirebaseSession - securityTimeToExpireBeforeFirebase,
+        maxAge: AuthManager.ageOfSession - securityTimeToExpireBefore,
       },
     };
   }

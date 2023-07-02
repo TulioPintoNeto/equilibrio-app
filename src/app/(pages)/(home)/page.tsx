@@ -10,8 +10,8 @@ export default function Home() {
       <SideMenu />
       <div className="p-4 sm:ml-64">
         <div className="grid grid-cols-2 gap-4">
-          <HomeList title="Pendências" />
-          <HomeList title="Próximos do Vencimento" />
+          <HomeList dateHeader="Vencido em" title="Pendências" />
+          <HomeList dateHeader="Vence em" title="Próximos do Vencimento" />
         </div>
       </div>
     </>

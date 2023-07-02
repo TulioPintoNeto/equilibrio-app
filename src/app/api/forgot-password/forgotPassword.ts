@@ -1,14 +1,14 @@
 import { NextRequest } from 'next/server';
-import { Firebase } from '@/backend/data/firebase/Firebase';
 import { getParams } from '@/backend/data/helpers/getParams';
+import { AuthManager } from '@/backend/data/auth/AuthManager';
 
 interface BodyParams {
   email: string;
 }
 
 export const forgotPassword = async (req: NextRequest) => {
-  const firebase = new Firebase();
+  const authManager = new AuthManager();
   const { email } = await getParams<BodyParams>(['email']).fromBody(req);
 
-  await firebase.forgotPassword(email);
+  await authManager.forgotPassword(email);
 };

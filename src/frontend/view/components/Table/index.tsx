@@ -2,7 +2,7 @@ import React from 'react';
 import { Cell } from './Cell';
 import { DateCell } from './DateCell';
 
-interface Row {
+export interface Row {
   cells: [string, Date];
 }
 
