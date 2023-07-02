@@ -11,7 +11,7 @@ export async function POST(req: NextRequest) {
     await login(req);
 
     const session = await sessionManager.get();
-    session.isLogged = true;
+    session.user = { isLogged: true };
     await session.save();
 
     return sessionManager.response(200, { isLogged: true });

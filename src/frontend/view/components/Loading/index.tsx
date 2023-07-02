@@ -11,6 +11,7 @@ export const Loading = styled.progress<{ $color?: string, $size?: string }>`
   color: ${({ $color }) => $color};
   font-size: ${({ $size }) => css`calc(8px + (${$size} / 5))`};
   height: ${({ $size }) => $size};
+  left: ${({ $size }) => css`calc(50% - ${$size} / 2)`};
   position: absolute;
   overflow: hidden;
   top: ${({ $size }) => css`calc(50% - ${$size} / 2)`};

@@ -3,9 +3,10 @@ import { IncomingMessage } from 'http';
 import { createResponse, getIronSession } from 'iron-session';
 import { Environment } from '@/data/Environment';
 import { AuthManager } from './AuthManager';
+import { User } from '@/domain/entities/User';
 
 export interface SessionParams {
-  isLogged: boolean;
+  user: User;
   destroy: () => Promise<void>;
   save: () => Promise<void>;
 }
