@@ -1,20 +1,20 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { SessionManager } from '@/backend/data/auth/SessionManager';
+import { SessionRepository } from '@/backend/data/auth/SessionRepository';
 
 export async function GET(req: NextRequest) {
   const res = new NextResponse();
-  const sessionManager = new SessionManager(req, res);
+  const sessionRepository = new SessionRepository(req, res);
 
   try {
-    const session = await sessionManager.get();
+    const session = await sessionRepository.get();
 
     if (session.user) {
-      return sessionManager.response(200, session.user);
+      return sessionRepository.response(200, session.user);
     }
 
-    return sessionManager.response(401, { message: 'Usuário não autenticado' });
+    return sessionRepository.response(401, { message: 'Usuário não autenticado' });
   } catch {
-    return sessionManager.response(
+    return sessionRepository.response(
       400,
       { message: 'Um erro inesperado ocorreu' },
     );

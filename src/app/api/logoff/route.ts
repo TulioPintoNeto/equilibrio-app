@@ -1,17 +1,17 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { SessionManager } from '@/backend/data/auth/SessionManager';
+import { SessionRepository } from '@/backend/data/auth/SessionRepository';
 
 export async function POST(req: NextRequest) {
   const res = new NextResponse();
-  const sessionManager = new SessionManager(req, res);
+  const sessionRepository = new SessionRepository(req, res);
 
   try {
-    const session = await sessionManager.get();
+    const session = await sessionRepository.get();
     await session.destroy();
 
-    return sessionManager.response(200, { isLogged: false });
+    return sessionRepository.response(200, { isLogged: false });
   } catch {
-    return sessionManager.response(
+    return sessionRepository.response(
       400,
       { message: 'Um erro inesperado ocorreu' },
     );

@@ -2,7 +2,7 @@
 import { IncomingMessage } from 'http';
 import { createResponse, getIronSession } from 'iron-session';
 import { Environment } from '@/data/Environment';
-import { AuthManager } from './AuthManager';
+import { AuthRepository } from './AuthRepository';
 import { User } from '@/domain/entities/User';
 
 export interface SessionParams {
@@ -14,7 +14,7 @@ export interface SessionParams {
 export class TooManyRetries extends Error {}
 export class EnvVariableNotFound extends Error {}
 
-export class SessionManager {
+export class SessionRepository {
   #retryCount = 5;
   #req: IncomingMessage | Request;
   #res: Response;
@@ -52,13 +52,13 @@ export class SessionManager {
       ...this.env,
       cookieOptions: {
         secure: Environment.isProduction,
-        maxAge: AuthManager.ageOfSession - securityTimeToExpireBefore,
+        maxAge: AuthRepository.ageOfSession - securityTimeToExpireBefore,
       },
     };
   }
 
   async #getSession(): Promise<SessionParams> {
-    const { options } = SessionManager;
+    const { options } = SessionRepository;
 
     try {
       const sessionParams = await getIronSession<SessionParams>(

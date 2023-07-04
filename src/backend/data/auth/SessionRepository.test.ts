@@ -1,12 +1,12 @@
 import { getIronSession } from 'iron-session';
-import { EnvVariableNotFound, SessionManager, TooManyRetries } from './SessionManager';
+import { EnvVariableNotFound, SessionRepository, TooManyRetries } from './SessionRepository';
 
 jest.mock('iron-session', () => ({
   getIronSession: jest.fn(),
 }));
 const mockGetIronSession = getIronSession as jest.Mock;
 
-describe('SessionManager', () => {
+describe('SessionRepository', () => {
   const OLD_ENV = process.env;
 
   beforeEach(() => {
@@ -18,7 +18,7 @@ describe('SessionManager', () => {
     process.env = OLD_ENV;
   });
 
-  const getSession = () => new SessionManager({} as Request, {} as Response).get();
+  const getSession = () => new SessionRepository({} as Request, {} as Response).get();
 
   describe('success', () => {
     const testSession = {

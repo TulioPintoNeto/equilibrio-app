@@ -1,15 +1,20 @@
-import { FirebaseOptions, initializeApp } from 'firebase/app';
+import { FirebaseApp, FirebaseOptions, initializeApp } from 'firebase/app';
 import {
-  Auth, getAuth, sendPasswordResetEmail, signInWithEmailAndPassword,
+  getAuth, sendPasswordResetEmail, signInWithEmailAndPassword,
 } from 'firebase/auth';
+import {
+  collection, getDocs, getFirestore, query,
+} from 'firebase/firestore';
 import { Credentials } from '@/domain/entities/Credentials';
 
-export class AuthError extends Error {}
-export class ForgotPasswordError extends Error {}
+export enum Databases {
+  Students = '/students',
+  Payments = '/payments',
+}
 
 export class Firebase {
   #options: FirebaseOptions;
-  #auth: Auth;
+  #app: FirebaseApp;
 
   constructor() {
     this.#options = {
@@ -20,27 +25,35 @@ export class Firebase {
       messagingSenderId: process.env.FIREBASE_MESSAGING_SENDER_ID,
       appId: process.env.FIREBASE_APP_ID,
     };
-    const app = initializeApp(this.#options);
-    this.#auth = getAuth(app);
+    this.#app = initializeApp(this.#options);
+  }
+
+  get #auth() {
+    return getAuth(this.#app);
+  }
+
+  get #firestore() {
+    return getFirestore(this.#app);
   }
 
   async login(credentials: Credentials): Promise<void> {
-    try {
-      await signInWithEmailAndPassword(
-        this.#auth,
-        credentials.email,
-        credentials.password,
-      );
-    } catch (e) {
-      throw new AuthError();
-    }
+    await signInWithEmailAndPassword(
+      this.#auth,
+      credentials.email,
+      credentials.password,
+    );
   }
 
   async forgotPassword(email: string): Promise<void> {
-    try {
-      await sendPasswordResetEmail(this.#auth, email);
-    } catch (e) {
-      throw new ForgotPasswordError();
-    }
+    await sendPasswordResetEmail(this.#auth, email);
+  }
+
+  async readAll<T>(database: Databases): Promise<T[]> {
+    const docRef = collection(this.#firestore, database);
+    const q = query(docRef);
+    const querySnapshot = await getDocs(q);
+    const result: T[] = [];
+    querySnapshot.forEach((doc) => result.push({ ...doc.data(), id: doc.id } as T));
+    return result;
   }
 }
